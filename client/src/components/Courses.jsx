@@ -57,7 +57,7 @@ function Courses() {
     ]
     return (
         <div className="flex flex-col items-start mx-8 space-y-3 mt-14 mb-8">
-            <h2 className="text-4xl font-bold">A broad selection of courses</h2>
+            <h2 className="text-3xl font-bold">A broad selection of courses</h2>
             <h3 className="text-xl">Choose from 183,000 online video courses with new new addtion published every month</h3>
             <div className="text-xs lg:text-xl flex space-x-4 ml-1 font-bold text-gray-500 cursor-pointer">
                 <h3>Python</h3>
