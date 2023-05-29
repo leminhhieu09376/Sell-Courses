@@ -5,7 +5,7 @@ const Course = (props) => {
     const { item } = props;
     return (
         <div className="flex flex-col items-start space-y-[1px]">
-            <img src="https://static.stringee.com/blog/images/javascript.png" className="h-40 w-full" alt="" />
+            <img src={item.image} className="h-40 w-full" alt="" />
             <h2 className='font-bold pt-1'>{item.title}</h2>
             <h2 className='text-xs text-gray-700'>{item.username}</h2>
             <div className='flex space-x-1'>

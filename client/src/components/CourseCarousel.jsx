@@ -35,7 +35,7 @@ const CourseCarousel = () => {
                 </div>
                 <h2 className='text-xs'>Created by MHLBT</h2>
             </div>
-            <div className={`${scrollPosition > 200 && scrollPosition < 700 ? 'border w-80 border-white bg-[white] shadow-lg text-black h-[600px] fixed right-72' : 'border w-80 border-white bg-[white] shadow-lg text-black h-[550px] ml-40 '}`}>
+            <div className={`${scrollPosition > 200 && scrollPosition < 700 ? 'border w-80 border-white bg-[white] shadow-lg text-black h-[600px] fixed right-72 top-0' : 'border w-80 border-white bg-[white] shadow-lg text-black h-[550px] ml-40 '}`}>
                 <img className="h-44 w-full" src="https://static.stringee.com/blog/images/javascript.png" alt="" />
                 <div className='flex space-x-4 items-center'>
                     <h3 className='text-black font-bold text-2xl pl-20'>₫329,000</h3>

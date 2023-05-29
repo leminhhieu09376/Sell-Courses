@@ -1,9 +1,17 @@
-//import React from 'react'
+import React from 'react'
+import { Link, useNavigate } from 'react-router-dom';
 import { GrMenu } from 'react-icons/gr';
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineShoppingCart, AiOutlineGlobal } from 'react-icons/ai';
 
 const Navbar = () => {
+    const navigate = useNavigate();
+    const handleSignUp = () => {
+        navigate('/register');
+    }
+    const handleLogIn = () => {
+        navigate('/login');
+    }
     return (
         <div>
             <div className="flex space-x-4 bg-white h-[74px] shadow-lg text-center justify-between items-center px-4">
@@ -21,8 +29,10 @@ const Navbar = () => {
                     <AiOutlineShoppingCart className='h-6 w-6' />
                 </div>
                 <div className='hidden md:flex pr-4 space-x-4 justify-end'>
-                    <button className='border border-black h-10 text-sm font-bold w-20 hover:bg-[#F5F5F5]'>Log In</button>
-                    <button className='border bg-black text-white border-black h-10 text-sm font-bold w-20 '>Sign Up</button>
+
+                    <button className='border border-black h-10 text-sm font-bold w-20 hover:bg-[#F5F5F5]' onClick={handleLogIn}>Log In</button>
+
+                    <button className='border bg-black text-white border-black h-10 text-sm font-bold w-20 ' onClick={handleSignUp}>Sign Up</button>
                     <button className='border border-black w-10 flex items-center justify-center hover:bg-[#F5F5F5]'>
                         <AiOutlineGlobal className='h-5 w-5' />
                     </button>

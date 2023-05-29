@@ -9,5 +9,7 @@ export default {
       md: "891",
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }
