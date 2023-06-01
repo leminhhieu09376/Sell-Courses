@@ -10,7 +10,7 @@ const ForgotPasswordMain = () => {
         <div>
             {
                 enterBtn == false ?
-                    <div className='w-full'>
+                    <div className='w-full h-96'>
                         <h1 className='mt-20 font-bold mb-4'>Forgot Password</h1>
                         <div className='mx-auto w-full'>
                             <input className='w-96 border border-black outline-none mb-4 p-4 font-bold ' type="text" placeholder='Email' />
@@ -21,13 +21,13 @@ const ForgotPasswordMain = () => {
                         <div className='mb-4 mt-10'>
                             <span>or </span>
                             <Link to="/login">
-                                <span className='font-bold text-[#401B9C] underline '><a href=""> Log in</a></span>
+                                <span className='font-bold text-[#401B9C] underline '> Log in</span>
                             </Link>
                         </div>
 
                     </div>
                     :
-                    <div className='w-full mt-20 h-72'>
+                    <div className='w-full mt-20 h-96'>
 
                         <div className='mx-auto w-96 h-32 bg-[#ACD2CC] text-left flex '>
                             <div className='mt-3 ml-4 mr-4'>

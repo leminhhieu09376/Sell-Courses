@@ -2,12 +2,13 @@ import React from 'react'
 import Course from "./Course"
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'
 
-function Courses() {
+function Courses({ token }) {
+    console.log(token)
     const scrollLeft = () => {
-        document.getElementById("content").scrollLeft -= 800
+        document.getElementById("content").scrollLeft -= 1000
     }
     const scrollRight = () => {
-        document.getElementById("content").scrollLeft += 800
+        document.getElementById("content").scrollLeft += 1000
     }
     const data = [
         {
@@ -98,61 +99,61 @@ function Courses() {
             category: 'js',
             image: 'https://static.stringee.com/blog/images/javascript.png'
         },
-        {
-            id: '9',
-            title: 'Learn JavaScript - For Beginners',
-            username: 'Jonas Schmedman',
-            vote: '4.2',
-            students: '(175,987)',
-            price: '$14,99',
-            oldPrice: '$89,99',
-            category: 'js',
-            image: 'https://static.stringee.com/blog/images/javascript.png'
-        },
-        {
-            id: '10',
-            title: 'Learn JavaScript - For Beginners',
-            username: 'Jonas Schmedman',
-            vote: '4.2',
-            students: '(175,987)',
-            price: '$14,99',
-            oldPrice: '$89,99',
-            category: 'js',
-            image: 'https://static.stringee.com/blog/images/javascript.png'
-        },
-        {
-            id: '11',
-            title: 'Learn JavaScript - For Beginners',
-            username: 'Jonas Schmedman',
-            vote: '4.2',
-            students: '(175,987)',
-            price: '$14,99',
-            oldPrice: '$89,99',
-            category: 'js',
-            image: 'https://static.stringee.com/blog/images/javascript.png'
-        },
-        {
-            id: '12',
-            title: 'Learn JavaScript - For Beginners',
-            username: 'Jonas Schmedman',
-            vote: '4.2',
-            students: '(175,987)',
-            price: '$14,99',
-            oldPrice: '$89,99',
-            category: 'js',
-            image: 'https://static.stringee.com/blog/images/javascript.png'
-        },
-        {
-            id: '13',
-            title: 'END Learn JavaScript - For Beginners',
-            username: 'Jonas Schmedman',
-            vote: '4.2',
-            students: '(175,987)',
-            price: '$14,99',
-            oldPrice: '$89,99',
-            category: 'js',
-            image: 'https://static.stringee.com/blog/images/javascript.png'
-        },
+        // {
+        //     id: '9',
+        //     title: 'Learn JavaScript - For Beginners',
+        //     username: 'Jonas Schmedman',
+        //     vote: '4.2',
+        //     students: '(175,987)',
+        //     price: '$14,99',
+        //     oldPrice: '$89,99',
+        //     category: 'js',
+        //     image: 'https://static.stringee.com/blog/images/javascript.png'
+        // },
+        // {
+        //     id: '10',
+        //     title: 'Learn JavaScript - For Beginners',
+        //     username: 'Jonas Schmedman',
+        //     vote: '4.2',
+        //     students: '(175,987)',
+        //     price: '$14,99',
+        //     oldPrice: '$89,99',
+        //     category: 'js',
+        //     image: 'https://static.stringee.com/blog/images/javascript.png'
+        // },
+        // {
+        //     id: '11',
+        //     title: 'Learn JavaScript - For Beginners',
+        //     username: 'Jonas Schmedman',
+        //     vote: '4.2',
+        //     students: '(175,987)',
+        //     price: '$14,99',
+        //     oldPrice: '$89,99',
+        //     category: 'js',
+        //     image: 'https://static.stringee.com/blog/images/javascript.png'
+        // },
+        // {
+        //     id: '12',
+        //     title: 'Learn JavaScript - For Beginners',
+        //     username: 'Jonas Schmedman',
+        //     vote: '4.2',
+        //     students: '(175,987)',
+        //     price: '$14,99',
+        //     oldPrice: '$89,99',
+        //     category: 'js',
+        //     image: 'https://static.stringee.com/blog/images/javascript.png'
+        // },
+        // {
+        //     id: '13',
+        //     title: 'END Learn JavaScript - For Beginners',
+        //     username: 'Jonas Schmedman',
+        //     vote: '4.2',
+        //     students: '(175,987)',
+        //     price: '$14,99',
+        //     oldPrice: '$89,99',
+        //     category: 'js',
+        //     image: 'https://static.stringee.com/blog/images/javascript.png'
+        // },
 
 
 
@@ -195,15 +196,19 @@ function Courses() {
                     {
                         data.map((item) =>
                         (
-                            <div className="h-80 w-full" key={item.id}>
+                            <div className="h-80 w-60" key={item.id}>
 
-                                <Course item={item} />
+                                <Course id={item.id} token={token} item={item} />
                             </div>
                         )
 
                         )
                     }
                 </div>
+
+
+
+
             </div>
         </div>
     )

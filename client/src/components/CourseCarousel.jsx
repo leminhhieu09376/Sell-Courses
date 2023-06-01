@@ -18,7 +18,7 @@ const CourseCarousel = () => {
     const handleScrollToTop = () => {
         scroll.scrollToTop();
     };
-    console.log(scrollPosition)
+
     return (
         <div className='w-full h-96 bg-[#1C1D1F] text-[white] flex'>
             <div className='w-2/5 text-left ml-40 pt-9'>

@@ -2,7 +2,7 @@
 import { AiOutlineGlobal } from 'react-icons/ai'
 const Footer = () => {
     return (
-        <div className="w-full h-80 bg-[#1C1D1F] pt-8  ">
+        <div className="w-full  bg-[#1C1D1F] pt-8  ">
             <div className='flex justify-between ml-8 mr-8'>
                 <div className="flex text-gray-50 items-start ">
                     <div className="mr-28 text-left ">
@@ -33,7 +33,7 @@ const Footer = () => {
                     <p>English</p>
                 </div>
             </div>
-            <div className='flex justify-between text-gray-50 mt-20'>
+            <div className='flex justify-between text-gray-50 mt-[39px] '>
                 <img src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy-inverted.svg" alt="" className='w-20 h-20 ml-8' />
                 <p className='mr-8 text-xs mt-8 '>© 2023 Ucourse, Inc.</p>
             </div>
