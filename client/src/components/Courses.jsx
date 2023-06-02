@@ -1,5 +1,6 @@
 import React from 'react'
 import Course from "./Course"
+import { Link } from 'react-router-dom'
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'
 
 function Courses({ token }) {
@@ -178,7 +179,10 @@ function Courses({ token }) {
                     displaying countdowns and timers,
                     and playing media on a webpage. With JavaScript online classes, you can learn to build...
                 </h3>
+
                 <button className="border border-black font-bold text-sm p-2 mt-4 mb-8">Explore JavaScript</button>
+
+
 
                 <div id='content' className=" w-3/4 mx-auto flex gap-4 flex-wrap lg:flex-nowrap  items-center justify-start overflow-x-auto scrollbar-hide scroll-smooth">
                     <div >

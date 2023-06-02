@@ -16,6 +16,7 @@ import MyLearning from './pages/MyLearning';
 import ShoppingCart from './pages/ShoppingCart';
 import Checkout from './pages/Checkout';
 import Learning from './pages/Learning';
+import ExploreCourse from './pages/ExploreCourse';
 function App() {
 
   const router = createBrowserRouter([
@@ -59,6 +60,11 @@ function App() {
       path: "/learning/:id",
       element: <Learning />
     },
+    {
+      path: "/all-course/:id",
+      element: <ExploreCourse />
+    },
+
 
 
 
