@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { animateScroll as scroll } from 'react-scroll';
 import { AiTwotoneStar } from 'react-icons/ai'
+import StarRating from './StarRating';
 const CourseCarousel = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -26,13 +27,9 @@ const CourseCarousel = () => {
                 <h2 className='text-[18px] mb-4'>The modern JavaScript course for everyone! Master JavaScript with projects, challenges and theory. Many courses in one!</h2>
 
                 <h3 className='text-orange-100 font-bold text-sm'>4.7 (785,594 students)</h3>
-                <div className='flex items-center mb-4 mt-2'>
-                    <AiTwotoneStar className='w-4 text-orange-300' />
-                    <AiTwotoneStar className='w-4 text-orange-300' />
-                    <AiTwotoneStar className='w-4 text-orange-300' />
-                    <AiTwotoneStar className='w-4 text-orange-300' />
-                    <AiTwotoneStar className='w-4 text-orange-300' />
-                </div>
+
+                <StarRating rate={4.7} />
+
                 <h2 className='text-xs'>Created by MHLBT</h2>
             </div>
             <div className={`${scrollPosition > 200 && scrollPosition < 700 ? 'border w-80 border-white bg-[white] shadow-lg text-black h-[600px] fixed right-72 top-0' : 'border w-80 border-white bg-[white] shadow-lg text-black h-[550px] ml-40 '}`}>

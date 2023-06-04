@@ -16,7 +16,9 @@ const Header = () => {
         <div>
             <div className="flex space-x-4 bg-white h-[74px]  text-center justify-between items-center px-4">
                 <GrMenu className='h-6 w-6 md:hidden' />
-                <h2 className='text-3xl font-bold '>UCourse</h2>
+                <Link to='/home'>
+                    <h2 className='text-3xl font-bold '>UCourse</h2>
+                </Link>
                 <h3 className='hidden text-sm md:block'>Categories</h3>
                 <form className='hidden bg-[#f8fafb] md:flex border border-black rounded-3xl flex-1 h-12 items-center'>
                     <BsSearch className='h-5 w-5 mx-4 text-gray-400' />

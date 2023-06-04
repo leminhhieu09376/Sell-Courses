@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { AiTwotoneStar } from 'react-icons/ai'
 import CourseItemDes from '../pages/CourseItemDes';
+import StarRating from './StarRating';
 const Course = (props) => {
     const { item, token, id } = props;
 
@@ -23,11 +24,7 @@ const Course = (props) => {
                 <div className='flex space-x-1'>
                     <h3 className='text-orange-800 font-bold text-sm'>{item.vote}</h3>
                     <div className='flex items-center'>
-                        <AiTwotoneStar className='w-4 text-orange-400' />
-                        <AiTwotoneStar className='w-4 text-orange-400' />
-                        <AiTwotoneStar className='w-4 text-orange-400' />
-                        <AiTwotoneStar className='w-4 text-orange-400' />
-                        <AiTwotoneStar className='w-4 text-orange-400' />
+                        <StarRating rate={item.vote} />
                     </div>
                     <h3 className='text-xs'>{item.students}</h3>
                 </div>
