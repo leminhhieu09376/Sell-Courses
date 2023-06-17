@@ -73,7 +73,7 @@ const Learning = () => {
     return (
         <div>
             <div className="flex space-x-4 bg-[#1C1D1F] h-[74px] shadow-lg text-center justify-between items-center px-4 text-white">
-                <Link to="/home">
+                <Link to="/">
                     <h2 className='text-3xl font-bold '>UCourse</h2>
                 </Link>
 

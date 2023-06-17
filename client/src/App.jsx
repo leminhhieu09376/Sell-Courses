@@ -1,5 +1,7 @@
 
 import './App.css'
+
+
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -22,7 +24,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <HomePage />,
+      element: <HomePageUser />
     },
     {
       path: "/login",
@@ -36,10 +38,7 @@ function App() {
       path: "/forgotPassword",
       element: <ForgotPassword />
     },
-    {
-      path: "/home",
-      element: <HomePageUser />
-    },
+
     {
       path: "/courseItem/:id",
       element: <CourseItemDes />
@@ -70,9 +69,14 @@ function App() {
 
   ]);
   return (
+
     <div className='App'>
       <RouterProvider router={router} />
     </div>
+
+
+
+
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../components/Header'
 import Main from '../components/Main'
@@ -7,12 +7,18 @@ import BecomInstructor from '../components/BecomInstructor'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 const HomePageUser = () => {
-    const token = true
+    const [token, setToken] = useState()
+    useEffect(() => {
+        const cart = localStorage.getItem("profile") ? JSON.parse(localStorage.getItem("profile")) : []
+        setToken(cart.accessToken)
 
+
+    }, [])
+    console.log(token)
     return (
         <div>
             {
-                token == true
+                token
                     ?
                     <div>
                         <Header />

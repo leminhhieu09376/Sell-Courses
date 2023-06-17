@@ -58,7 +58,10 @@ const Checkout = () => {
         <div>
             <div className="flex space-x-4 bg-white h-[74px] shadow-lg text-center justify-between items-center px-4">
                 <GrMenu className='h-6 w-6 md:hidden' />
-                <h2 className='text-3xl font-bold '>UCourse</h2>
+                <Link to='/'>
+                    <h2 className='text-3xl font-bold '>UCourse</h2>
+                </Link>
+
             </div>
             <div className='flex mt-4 h-[650px]'>
                 <div className='w-1/2 text-left ml-52 '>
