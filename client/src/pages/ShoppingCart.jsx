@@ -1,43 +1,64 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header'
+import Navbar from '../components/Navbar';
 import Footer from '../components/Footer'
 import { AiTwotoneStar } from 'react-icons/ai'
 import StarRating from '../components/StarRating';
 const ShoppingCart = () => {
-
+    const [userData, setUserData] = useState(
+        localStorage.getItem("profile") != null
+            ? JSON.parse(localStorage.getItem("profile")).result
+            : undefined
+    );
     const [cartData, setCartData] = useState([])
     useEffect(() => {
         const cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
         setCartData(cart)
 
 
-    }, [])
-    console.log(cartData)
+    }, [cartData])
+
     const navigate = useNavigate();
     const handleCheckOut = () => {
-        navigate("/check-out")
-    }
+        if (userData) {
+            navigate("/check-out")
+        } else {
+            navigate("/login")
+        }
 
+    }
+    const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+    });
     const totalRawPrice = (arr) => {
         let total = 0
         for (var i = 0; i < arr.length; i++) {
             total += Number(arr[i].rawPrice);
         }
-        return total.toFixed(2)
+        return total
     }
     const totalPrice = (arr) => {
         let total = 0
         for (var i = 0; i < arr.length; i++) {
-            total += Number(arr[i].discountValue);
+            total += Number(arr[i].rawPrice - arr[i].discountValue);
         }
-        return total.toFixed(2)
+        return total
     }
+    const handleRemove = (_id) => {
+        const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
+        const newCart = cart.filter(item => item._id !== _id);
+        localStorage.setItem('cart', JSON.stringify(newCart));
 
+    }
 
     return (
         <div>
-            <Header />
+            {
+                userData ? (<Header userData={userData} />) : (<Navbar />)
+            }
+
             <div className='flex'>
                 <div className=' w-2/3 mb-10 ml-40  '>
                     <h1 className='text-4xl text-left pt-8 mb-10  font-bold'>Shopping Cart</h1>
@@ -48,8 +69,8 @@ const ShoppingCart = () => {
                             :
                             cartData.map((item) => {
                                 return (
-                                    <div key={item.id} className='w-3/4 border-t-2 p-4 flex h-36'>
-                                        <img src={item.image} alt="" className='w-36 h-20 mr-4' />
+                                    <div key={item._id} className='w-11/12 border-t-2 p-4 flex h-36'>
+                                        <img src={item.image} alt="" className='w-36  mr-4' />
                                         <div className='text-left mr-20 w-3/4'>
                                             <p className='font-bold'>
                                                 {item.title}
@@ -64,9 +85,9 @@ const ShoppingCart = () => {
                                             </div>
                                         </div>
                                         <div className='flex'>
-                                            <button className='mb-10 text-[#A435F0] mr-10'>Remove</button>
-                                            <p className='text-[#A435F0] mt-6 mr-4'>${item.discountValue}</p>
-                                            <p className='text-[#A435F0] mt-6 line-through'>${item.rawPrice}</p>
+                                            <button onClick={() => { handleRemove(item._id) }} className='mb-10 text-[#A435F0] mr-10'>Remove</button>
+                                            <p className='text-[#A435F0] mt-6 mr-4'>${formatter.format(item.rawPrice - item.discountValue)}</p>
+                                            <p className='text-[#A435F0] mt-6 line-through'>{formatter.format(item.rawPrice)}</p>
                                         </div>
 
                                     </div>
@@ -81,7 +102,7 @@ const ShoppingCart = () => {
                         <div className='w-1/4 mb-10 mt-20 border-b-2 border-gray p-8 mr-20 h-72'>
                             <h1 className='text-xl text-left font-bold mt-20 text-[#6A6F73]'>Total:</h1>
                             <div className='flex'>
-                                <h1 className='text-3xl text-left font-bold mb-4'>${totalPrice(cartData)}</h1>
+                                <h1 className='text-3xl text-left font-bold mb-4'>{formatter.format(totalPrice(cartData))}</h1>
 
                             </div>
                             <button onClick={handleCheckOut} className='bg-[#8710D8] w-72 h-14 text-white font-bold'>Checkout</button>

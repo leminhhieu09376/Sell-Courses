@@ -8,7 +8,7 @@ import {
   RouterProvider,
   Route
 } from "react-router-dom";
-import HomePage from './pages/HomePage'
+
 import CourseItemDes from './pages/CourseItemDes'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -19,6 +19,8 @@ import ShoppingCart from './pages/ShoppingCart';
 import Checkout from './pages/Checkout';
 import Learning from './pages/Learning';
 import ExploreCourse from './pages/ExploreCourse';
+import ResetPassword from './pages/ResetPassword';
+import ChangePassword from './pages/ChangePassword';
 function App() {
 
   const router = createBrowserRouter([
@@ -62,6 +64,14 @@ function App() {
     {
       path: "/all-course/:id",
       element: <ExploreCourse />
+    },
+    {
+      path: "/reset-pass",
+      element: <ResetPassword />
+    },
+    {
+      path: "/changepassword",
+      element: <ChangePassword />
     },
 
 

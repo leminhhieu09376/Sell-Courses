@@ -7,7 +7,7 @@ export const signin = (userData, router) => (dispatch) => {
       .signIn(userData)
       .then((res) => {
         const data = res.data;
-        if (data.success) {
+        if (data.code) {
           dispatch({ type: AUTH, data });
           router("/");
         } else {

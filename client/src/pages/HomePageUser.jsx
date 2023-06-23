@@ -6,22 +6,27 @@ import Courses from '../components/Courses'
 import BecomInstructor from '../components/BecomInstructor'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
+import { useDispatch } from "react-redux";
+import { getCategories } from '../actions/category'
+
 const HomePageUser = () => {
-    const [token, setToken] = useState()
+
+    const [userData, setUserData] = useState(
+        localStorage.getItem("profile") != null
+            ? JSON.parse(localStorage.getItem("profile")).result
+            : undefined
+    );
+    const dispatch = useDispatch();
     useEffect(() => {
-        const cart = localStorage.getItem("profile") ? JSON.parse(localStorage.getItem("profile")) : []
-        setToken(cart.accessToken)
-
-
-    }, [])
-    console.log(token)
+        dispatch(getCategories());
+    }, [dispatch]);
     return (
         <div>
             {
-                token
+                userData
                     ?
                     <div>
-                        <Header />
+                        <Header userData={userData} setUserData={setUserData} />
                         <hr />
                         <div className='flex justify-center w-full mx-auto mt-4 shadow-lg'>
                             <Link to="/all-course/Python">
@@ -63,7 +68,7 @@ const HomePageUser = () => {
             {/* <Header /> */}
             <Main />
 
-            <Courses token={token} />
+            <Courses />
             <BecomInstructor />
             <Footer />
         </div>

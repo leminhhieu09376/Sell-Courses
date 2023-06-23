@@ -10,6 +10,7 @@ const CourseContent = ({ data }) => {
 
                 {
                     React.Children.toArray(
+                        data.contentMaster &&
                         data.contentMaster.map((value) => {
                             return (
                                 <div className='text-left border-b border-gray p-4  bg-[#F7F9FA] flex justify-between'>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Footer from '../components/Footer';
 import { Link, useNavigate } from 'react-router-dom';
 import { GrMenu } from 'react-icons/gr';
@@ -7,53 +7,29 @@ import { AiOutlineShoppingCart, AiOutlineGlobal, AiFillCreditCard } from 'react-
 
 const Checkout = () => {
     const navigate = useNavigate();
+    const [cartData, setCartData] = useState([])
+    useEffect(() => {
+        const cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
+        setCartData(cart)
+
+
+    }, [])
+
+    const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+    });
+
     const totalPrice = (arr) => {
         let total = 0
         for (var i = 0; i < arr.length; i++) {
-            total += Number(arr[i].price);
+            total += Number(arr[i].rawPrice - arr[i].discountValue);
         }
-        return total.toFixed(2)
+        return total
     }
-    const data = [
-        {
-            id: '1',
-            title: 'The Complete JavaScript Course: From Zero to Expert!',
-            username: 'Jonas Schmedman',
-            vote: '4.7',
-            students: '(175,987)',
-            price: "15.99",
-            oldPrice: '89.99',
-            category: 'js',
-            image: 'https://static.stringee.com/blog/images/javascript.png'
-        },
-        {
-            id: '2',
-            title: 'Complete JAVASCRIPT with HTML5,CSS3 from zero to Expert-2023',
-            username: 'Jonas Schmedman',
-            vote: '4.3',
-            students: '(175,987)',
-            price: '14.99',
-            oldPrice: '89.99',
-            category: 'js',
-            image: 'https://static.stringee.com/blog/images/javascript.png'
-        },
-        {
-            id: '3',
-            title: 'The Complete Full-Stack JavaScript Course',
-            username: 'Jonas Schmedman',
-            vote: '4.3',
-            students: '(175,987)',
-            price: '14.99',
-            oldPrice: '89.99',
-            category: 'js',
-            image: 'https://static.stringee.com/blog/images/javascript.png'
-        },
 
 
 
-
-
-    ]
     return (
         <div>
             <div className="flex space-x-4 bg-white h-[74px] shadow-lg text-center justify-between items-center px-4">
@@ -80,7 +56,7 @@ const Checkout = () => {
                     <div>
                         <h3 className='font-bold text-xl font-serif mb-4'>Order details</h3>
                         {
-                            data.map((item) => {
+                            cartData.map((item) => {
                                 return (
                                     <div className='flex text-[12px] w-full h-10'>
                                         <img src={item.image} alt="" className=' mb-4 mr-2' />
@@ -91,7 +67,7 @@ const Checkout = () => {
 
                                         </div>
                                         <div className='mr-10'>
-                                            ${item.price}
+                                            {item.price}
                                         </div>
                                     </div>
                                 )
@@ -103,7 +79,7 @@ const Checkout = () => {
                 <div className='w-1/2 bg-[#F7F9FA] mr-52 pt-20 text-left pl-10 '>
                     <h3 className='font-bold text-xl font-serif mb-4'>Summary</h3>
                     <p className='font-bold text-xm font-serif mb-4'>Total :
-                        {totalPrice(data)}</p>
+                        {formatter.format(totalPrice(cartData))}</p>
                     <p className='text-xs text-[#9B9FA2] mb-10'>By completing your purchase you agree to these Terms of Service.</p>
                     <button className='bg-[#8710D8] w-72 h-14 text-white font-bold'>Checkout</button>
                 </div>

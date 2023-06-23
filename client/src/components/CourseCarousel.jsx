@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { animateScroll as scroll } from 'react-scroll';
 import { AiTwotoneStar } from 'react-icons/ai'
 import StarRating from './StarRating';
+import { useSelector } from "react-redux";
 const CourseCarousel = ({ data, addToCart, isExist }) => {
+
     const [scrollPosition, setScrollPosition] = useState(0);
 
 
@@ -18,8 +20,10 @@ const CourseCarousel = ({ data, addToCart, isExist }) => {
         };
     }, []);
 
-
-
+    const formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+    });
 
     return (
         <div className='w-full h-96 bg-[#1C1D1F] text-[white] flex'>
@@ -37,8 +41,8 @@ const CourseCarousel = ({ data, addToCart, isExist }) => {
             <div className={`${scrollPosition > 200 && scrollPosition < 700 ? 'border w-80 border-white bg-[white] shadow-lg text-black h-[600px] fixed right-72 top-0' : 'border w-80 border-white bg-[white] shadow-lg text-black h-[550px] ml-40 '}`}>
                 <img className="h-44 w-full" src={data.image} alt="" />
                 <div className='flex space-x-4 items-center justify-center'>
-                    <h3 className='text-black font-bold text-2xl '>${data.discountValue}</h3>
-                    <h3 className='text-gray-800 text-sm line-through'>${data.rawPrice}</h3>
+                    <h3 className='text-black font-bold text-2xl '>{formatter.format(data.rawPrice - data.discountValue)}</h3>
+                    <h3 className='text-gray-800 text-sm line-through'>{formatter.format(data.rawPrice)}</h3>
                 </div>
                 {
                     isExist == true
