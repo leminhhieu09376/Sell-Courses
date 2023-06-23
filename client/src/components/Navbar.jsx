@@ -13,7 +13,8 @@ const Navbar = ({ addCart }) => {
         setCartData(cart)
         setCartItemCount(cart.length)
 
-    }, [addCart, cartData])
+    }, [addCart])
+
     const [isCartHovered, setIsCartHovered] = useState(false);
 
     const handleCartMouseEnter = () => {

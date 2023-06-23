@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import { AiTwotoneStar } from 'react-icons/ai'
 import StarRating from '../components/StarRating';
 const ShoppingCart = () => {
+
     const [userData, setUserData] = useState(
         localStorage.getItem("profile") != null
             ? JSON.parse(localStorage.getItem("profile")).result
@@ -17,7 +18,7 @@ const ShoppingCart = () => {
         setCartData(cart)
 
 
-    }, [cartData])
+    }, [])
 
     const navigate = useNavigate();
     const handleCheckOut = () => {
@@ -46,17 +47,20 @@ const ShoppingCart = () => {
         }
         return total
     }
+    const [removeAction, setRemoveAction] = useState(false)
     const handleRemove = (_id) => {
         const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : []
         const newCart = cart.filter(item => item._id !== _id);
         localStorage.setItem('cart', JSON.stringify(newCart));
+        setCartData(newCart)
+        setRemoveAction(!removeAction)
 
     }
 
     return (
         <div>
             {
-                userData ? (<Header userData={userData} />) : (<Navbar />)
+                userData ? (<Header userData={userData} removeAction={removeAction} />) : (<Navbar removeAction={removeAction} />)
             }
 
             <div className='flex'>

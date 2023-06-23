@@ -19,7 +19,7 @@ const HomePageUser = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getCategories());
-    }, [dispatch]);
+    }, [dispatch, userData]);
     return (
         <div>
             {

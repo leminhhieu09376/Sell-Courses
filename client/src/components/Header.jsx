@@ -5,7 +5,7 @@ import { BsSearch } from 'react-icons/bs';
 import { AiOutlineShoppingCart, AiOutlineGlobal, AiOutlineBell } from 'react-icons/ai';
 import { Button } from 'react-scroll';
 
-const Header = ({ addCart, userData, setUserData }) => {
+const Header = ({ addCart, userData, setUserData, removeAction }) => {
     const [cartItemCount, setCartItemCount] = useState();
     const [cartData, setCartData] = useState([])
     useEffect(() => {
@@ -13,7 +13,7 @@ const Header = ({ addCart, userData, setUserData }) => {
         setCartData(cart)
         setCartItemCount(cart.length)
 
-    }, [addCart, cartData])
+    }, [addCart, removeAction])
 
     const navigate = useNavigate();
     const [isCartHovered, setIsCartHovered] = useState(false);
@@ -141,7 +141,7 @@ const Header = ({ addCart, userData, setUserData }) => {
                             <p className='font-bold'>{userData.name}</p>
                             <p className='text-gray-500 text-xs mb-2'>{userData.email}</p>
                             <hr className='mb-4' />
-                            <Link to='changepassword'>
+                            <Link to='/changepassword'>
                                 <p className='text-left text-sm mb-4 ml-5 hover:text-blue-500'>Change Password</p>
                             </Link>
                             <p onClick={handleLogout} className='text-left text-sm mb-4 ml-5 cursor-pointer hover:text-blue-500'>Log out</p>
