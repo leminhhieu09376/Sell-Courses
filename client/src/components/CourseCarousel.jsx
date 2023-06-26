@@ -4,7 +4,7 @@ import { animateScroll as scroll } from 'react-scroll';
 import { AiTwotoneStar } from 'react-icons/ai'
 import StarRating from './StarRating';
 import { useSelector } from "react-redux";
-const CourseCarousel = ({ data, addToCart, isExist }) => {
+const CourseCarousel = ({ data, addToCart, isExist, handleBuyNow }) => {
 
     const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -56,7 +56,7 @@ const CourseCarousel = ({ data, addToCart, isExist }) => {
                 }
 
 
-                <button className='block mx-auto  mt-4  border border-black w-48 h-10 font-bold '>Buy now</button>
+                <button onClick={handleBuyNow} className='block mx-auto  mt-4  border border-black w-48 h-10 font-bold '>Buy now</button>
                 <p className='text-sm mt-4 mb-4'>30-Day Money-Back Guarantee</p>
                 <hr />
                 <h3 className='font-bold mt-4 mb-2'>Training 5 or more people?</h3>

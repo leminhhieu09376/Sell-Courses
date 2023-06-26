@@ -4,7 +4,7 @@ import { GrMenu } from 'react-icons/gr';
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineShoppingCart, AiOutlineGlobal } from 'react-icons/ai';
 
-const Navbar = ({ addCart }) => {
+const Navbar = ({ addCart, removeAction }) => {
     const navigate = useNavigate();
     const [cartItemCount, setCartItemCount] = useState();
     const [cartData, setCartData] = useState([])
@@ -13,7 +13,7 @@ const Navbar = ({ addCart }) => {
         setCartData(cart)
         setCartItemCount(cart.length)
 
-    }, [addCart])
+    }, [addCart, removeAction])
 
     const [isCartHovered, setIsCartHovered] = useState(false);
 
@@ -91,7 +91,7 @@ const Navbar = ({ addCart }) => {
                                                 </p>
 
                                             </div>
-                                            <p className='text-left text-gray-400'>{item.author}</p>
+                                            <p className='text-left text-gray-400'>{item.stageName}</p>
                                             <div className='flex'>
                                                 <p className='text-left font-bold mb-4 mr-4'>
                                                     {formatter.format(item.rawPrice - item.discountValue)}

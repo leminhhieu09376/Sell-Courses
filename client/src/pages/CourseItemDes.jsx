@@ -9,9 +9,10 @@ import Header from '../components/Header';
 import { useDispatch } from "react-redux";
 import { getCourseDetail } from '../actions/course';
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from 'react-router-dom';
 
 const CourseItemDes = () => {
-
+    const navigate = useNavigate();
     const [userData, setUserData] = useState(
         localStorage.getItem("profile") != null
             ? JSON.parse(localStorage.getItem("profile")).result
@@ -64,15 +65,38 @@ const CourseItemDes = () => {
         }
 
     };
+    const handleBuyNow = () => {
+
+        const storedCart = localStorage.getItem('cart');
+        const parsedCart = storedCart ? JSON.parse(storedCart) : []
+
+        // Kiểm tra xem desiredCourse đã tồn tại trong giỏ hàng hay chưa
+        const isProductInCart = parsedCart.some((item) => item._id === desiredCourse._id)
+
+        if (isProductInCart) {
+            // Nếu desiredCourse đã tồn tại trong giỏ hàng, không thêm vào
+
+            setIsExist(true)
+        } else {
+            // Nếu desiredCourse chưa tồn tại trong giỏ hàng, thêm vào
+            const updatedCart = [...parsedCart, { ...desiredCourse, isExist: true }];
+            setAddCart(updatedCart);
+            setIsExist(true)
+
+            // Lưu giỏ hàng vào Local Storage
+            localStorage.setItem('cart', JSON.stringify(updatedCart));
+            navigate('/shopping-cart')
+        }
+    }
 
     console.log(isExist)
     return (
         <div>
             {
-                userData ? (<Header userData={userData} addCart={addCart} />) : (<Navbar addCart={addCart} />)
+                userData ? (<Header userData={userData} addCart={addCart} setUserData={setUserData} />) : (<Navbar addCart={addCart} />)
             }
 
-            <CourseCarousel data={desiredCourse} addToCart={addToCart} isExist={isExist} />
+            <CourseCarousel data={desiredCourse} addToCart={addToCart} isExist={isExist} handleBuyNow={handleBuyNow} />
             <CourseInfo data={desiredCourse} />
             <CourseContent data={desiredCourse} />
             <Footer />

@@ -5,7 +5,7 @@ import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'
 import { useSelector } from "react-redux";
 import { getCategory } from '../actions/category';
 import { useDispatch } from "react-redux";
-function Courses({ token }) {
+function Courses() {
     const dispatch = useDispatch();
     const categoriesData = useSelector((state) => state.category.categories);
 
@@ -18,7 +18,7 @@ function Courses({ token }) {
 
     }, [categoriesData]);
 
-    console.log("currentCategory", currentCategory)
+
 
     const [visibleLeft, setVisibleLeft] = useState();
     const [visibleRight, setVisibleRight] = useState();
@@ -92,7 +92,7 @@ function Courses({ token }) {
                 <h3>
                     {currentCategory && currentCategory.subDescription}
                 </h3>
-                <Link to={`/all-course/${currentCategory && currentCategory.title}`}>
+                <Link to={`/all-course/${currentCategory && currentCategory._id}`}>
                     <button className="border border-black font-bold text-sm p-2 mt-4 mb-8">Explore {currentCategory && currentCategory.title}</button>
                 </Link>
 

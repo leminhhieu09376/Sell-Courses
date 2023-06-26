@@ -79,7 +79,7 @@ const ShoppingCart = () => {
                                             <p className='font-bold'>
                                                 {item.title}
                                             </p>
-                                            <p className='text-xs'> {item.author}</p>
+                                            <p className='text-xs'> {item.stageName}</p>
                                             <div className='flex space-x-1'>
                                                 <h3 className='text-orange-800 font-bold text-sm'>{item.vote}</h3>
                                                 <div className='flex items-center'>
@@ -90,7 +90,7 @@ const ShoppingCart = () => {
                                         </div>
                                         <div className='flex'>
                                             <button onClick={() => { handleRemove(item._id) }} className='mb-10 text-[#A435F0] mr-10'>Remove</button>
-                                            <p className='text-[#A435F0] mt-6 mr-4'>${formatter.format(item.rawPrice - item.discountValue)}</p>
+                                            <p className='text-[#A435F0] mt-6 mr-4'>{formatter.format(item.rawPrice - item.discountValue)}</p>
                                             <p className='text-[#A435F0] mt-6 line-through'>{formatter.format(item.rawPrice)}</p>
                                         </div>
 

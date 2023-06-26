@@ -4,16 +4,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { GrMenu } from 'react-icons/gr';
 import { BsSearch } from 'react-icons/bs';
 import { AiOutlineShoppingCart, AiOutlineGlobal, AiFillCreditCard } from 'react-icons/ai';
+import { createOrder } from "../actions/order";
+import { useDispatch, useSelector } from "react-redux";
 
 const Checkout = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const [cartData, setCartData] = useState([])
     useEffect(() => {
         const cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
         setCartData(cart)
-
-
     }, [])
+
 
     const formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
@@ -21,6 +23,9 @@ const Checkout = () => {
     });
 
     const totalPrice = (arr) => {
+        if (!arr) {
+            return 0
+        }
         let total = 0
         for (var i = 0; i < arr.length; i++) {
             total += Number(arr[i].rawPrice - arr[i].discountValue);
@@ -28,7 +33,25 @@ const Checkout = () => {
         return total
     }
 
-
+    const handleCheckout = () => {
+        const course = [];
+        if (cartData.length == 0) {
+            return
+        }
+        cartData.map((item) => {
+            course.push(item._id,)
+        })
+        const orderMaster = {
+            customerId: JSON.parse(localStorage.getItem("profile")).result._id,
+            course,
+            totalPrice: totalPrice(cartData),
+        };
+        dispatch(createOrder(orderMaster, navigate));
+        localStorage.removeItem('cart');
+        setCartData(localStorage.getItem("cart") != null
+            ? JSON.parse(localStorage.getItem("cart")).result
+            : undefined)
+    }
 
     return (
         <div>
@@ -56,6 +79,7 @@ const Checkout = () => {
                     <div>
                         <h3 className='font-bold text-xl font-serif mb-4'>Order details</h3>
                         {
+                            cartData &&
                             cartData.map((item) => {
                                 return (
                                     <div className='flex text-[12px] w-full h-10'>
@@ -81,7 +105,7 @@ const Checkout = () => {
                     <p className='font-bold text-xm font-serif mb-4'>Total :
                         {formatter.format(totalPrice(cartData))}</p>
                     <p className='text-xs text-[#9B9FA2] mb-10'>By completing your purchase you agree to these Terms of Service.</p>
-                    <button className='bg-[#8710D8] w-72 h-14 text-white font-bold'>Checkout</button>
+                    <button onClick={handleCheckout} className='bg-[#8710D8] w-72 h-14 text-white font-bold'>Checkout</button>
                 </div>
             </div>
             {/* <Footer /> */}

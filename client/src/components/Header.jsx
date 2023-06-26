@@ -100,7 +100,7 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
                                                 </p>
 
                                             </div>
-                                            <p className='text-left text-gray-400'>{item.author}</p>
+                                            <p className='text-left text-gray-400'>{item.stageName}</p>
                                             <div className='flex'>
                                                 <p className='text-left font-bold mb-4 mr-4'>
                                                     {formatter.format(item.rawPrice - item.discountValue)}
@@ -133,7 +133,7 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
                     )}
                     <AiOutlineBell className='h-6 w-6 cursor-pointer' />
                 </div>
-                <div onMouseEnter={handleProfileMouseEnter}
+                <div onMouseEnter={handleProfileMouseEnter} onClick={handleProfileMouseEnter}
                     onMouseLeave={handleProfileMouseLeave} className=' flex rounded-full bg-[#1C1D1F] w-10 h-10 items-center justify-center ' >
                     <p className='text-white cursor-pointer'>{userData.name.split(" ")[0]}</p>
                     {isProfile && (

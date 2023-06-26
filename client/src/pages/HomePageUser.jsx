@@ -29,25 +29,25 @@ const HomePageUser = () => {
                         <Header userData={userData} setUserData={setUserData} />
                         <hr />
                         <div className='flex justify-center w-full mx-auto mt-4 shadow-lg'>
-                            <Link to="/all-course/Python">
+                            <Link to="/all-course/648d3c66a9acbfc17ee80462">
                                 <p className='p-4 mr-10 cursor-pointer'>Python</p>
                             </Link>
-                            <Link to="/all-course/Excel">
+                            <Link to="/all-course/648d3c7ea9acbfc17ee80464">
                                 <p className='p-4 mr-10 cursor-pointer'>Excel</p>
                             </Link>
-                            <Link to="/all-course/Web Development">
+                            <Link to="/all-course/648d3c9ba9acbfc17ee80466">
                                 <p className='p-4 mr-10 cursor-pointer'>Web Development</p>
                             </Link>
-                            <Link to="/all-course/JavaScript">
+                            <Link to="/all-course/648d3cb7a9acbfc17ee80468">
                                 <p className='p-4 mr-10 cursor-pointer'>JavaScript</p>
                             </Link>
-                            <Link to="/all-course/Data Science">
+                            <Link to="/all-course/648d3cd7a9acbfc17ee8046a">
                                 <p className='p-4 mr-10 cursor-pointer'>Data Science</p>
                             </Link>
-                            <Link to="/all-course/Amazon AWS">
+                            <Link to="/all-course/648d3cf6a9acbfc17ee8046c">
                                 <p className='p-4 mr-10 cursor-pointer'>Amazon AWS</p>
                             </Link>
-                            <Link to="/all-course/Drawing">
+                            <Link to="/all-course/648d3d11a9acbfc17ee8046e">
                                 <p className='p-4 mr-10 cursor-pointer'>Drawing</p>
                             </Link>
 

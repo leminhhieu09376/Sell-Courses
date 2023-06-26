@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import ExploreCourseMain from '../components/ExploreCourseMain'
+import Navbar from '../components/Navbar';
 const ExploreCourse = () => {
     const { id } = useParams();
     console.log(id)
@@ -13,7 +14,16 @@ const ExploreCourse = () => {
     );
     return (
         <div>
-            <Header userData={userData} />
+            {
+                userData
+                    ?
+
+                    <Header userData={userData} setUserData={setUserData} />
+
+                    :
+                    <Navbar />
+            }
+
             <ExploreCourseMain category={id} />
             <Footer />
         </div>

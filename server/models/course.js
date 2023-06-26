@@ -42,6 +42,7 @@ const courseSchema = mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  stageName: { type: String }
 
 });
 
