@@ -84,3 +84,44 @@ export const getCourse = async (req, res) => {
         res.status(404).json({ message: error.message });
     }
 };
+
+// Hàm tính toán số sao trung bình
+const calculateAverageStars = (currentNumberStart, numberOfVotes, newStars) => {
+    const totalStars = currentNumberStart * numberOfVotes;
+    const newTotalStars = totalStars + newStars;
+    const newNumberOfVotes = numberOfVotes + 1;
+    const newAverageStars = newTotalStars / newNumberOfVotes;
+    return newAverageStars;
+};
+
+
+export const updateRate = async (req, res) => {
+    const { id } = req.params;
+    const { numberStars, idCustomer } = req.body;
+
+    try {
+        // Kiểm tra xem khóa học có tồn tại không
+        const course = await Course.findById(id);
+        if (!course) {
+            return res.status(404).json({ code: false, message: 'Course not found' });
+        }
+
+        // Kiểm tra xem người dùng đã vote cho khóa học chưa
+        if (course.numberVoted.includes(idCustomer)) {
+            return res.status(200).json({ code: false, message: '🦄 User has already voted for this course' });
+        }
+
+        // Cập nhật số sao và danh sách người vote
+        const newNumberStart = calculateAverageStars(course.numberStart, course.numberVoted.length, numberStars);
+        const updatedCourse = await Course.findByIdAndUpdate(
+            id,
+            { $push: { numberVoted: idCustomer }, $set: { numberStart: newNumberStart } },
+            { new: true }
+        );
+
+        res.status(200).json({ code: true, result: updatedCourse, message: '🦄 Successful rating!' });
+    } catch (error) {
+        console.error('Error while updating rate:', error);
+        res.status(500).json({ code: false, message: 'Internal server error' });
+    }
+};

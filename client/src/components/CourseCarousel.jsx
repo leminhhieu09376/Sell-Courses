@@ -32,11 +32,11 @@ const CourseCarousel = ({ data, addToCart, isExist, handleBuyNow }) => {
                 <h1 className='text-3xl font-bold mb-4'>{data.title}</h1>
                 <h2 className='text-[18px] mb-4'>{data.subTitle}</h2>
 
-                <h3 className='text-orange-100 font-bold text-sm'>{data.vote} ({data.numberStudents})</h3>
+                <h3 className='text-orange-100 font-bold text-sm'>{data.numberStart} ({data && data.numberVoted && data.numberVoted.length})</h3>
 
-                <StarRating rate={data.vote} />
+                <StarRating rate={data.numberStart} />
 
-                <h2 className='text-xs'>{data.author}</h2>
+                <h2 className='text-xs'>{data.stageName}</h2>
             </div>
             <div className={`${scrollPosition > 200 && scrollPosition < 700 ? 'border w-80 border-white bg-[white] shadow-lg text-black h-[600px] fixed right-72 top-0' : 'border w-80 border-white bg-[white] shadow-lg text-black h-[550px] ml-40 '}`}>
                 <img className="h-44 w-full" src={data.image} alt="" />

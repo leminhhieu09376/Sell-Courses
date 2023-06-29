@@ -2,12 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { GrMenu } from 'react-icons/gr';
 import { BsSearch } from 'react-icons/bs';
-import { AiOutlineShoppingCart, AiOutlineGlobal, AiOutlineBell } from 'react-icons/ai';
-import { Button } from 'react-scroll';
+import {
+    AiOutlineShoppingCart, AiOutlineGlobal, AiOutlineBell,
+    AiOutlineHeart
+} from 'react-icons/ai';
+
 
 const Header = ({ addCart, userData, setUserData, removeAction }) => {
     const [cartItemCount, setCartItemCount] = useState();
     const [cartData, setCartData] = useState([])
+    const [visibleList, setVisibleList] = useState(false)
+    const [input, setInput] = useState("")
+    const [result, setResult] = useState([])
     useEffect(() => {
         const cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
         setCartData(cart)
@@ -66,7 +72,30 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
         }
         return total
     }
+    const fetchData = (value) => {
 
+        fetch('http://localhost:5000/course').then((response) => {
+            return response.json()
+        }).then((json) => {
+            const result = json.filter((course) => {
+                return value && course && course.title && course.title.toLowerCase().includes(value)
+            })
+
+            setResult(result)
+        })
+
+
+
+    }
+    const handleChange = (value) => {
+        setInput(value)
+        fetchData(value)
+    }
+    console.log(result)
+    const handleClick = (_id) => {
+        window.scrollTo(0, 0);
+        navigate(`/courseItem/${_id}`)
+    }
     return (
         <div>
             <div className="flex space-x-4 bg-white h-[74px]  text-center justify-between items-center px-4">
@@ -74,10 +103,19 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
                 <Link to='/'>
                     <h2 className='text-3xl font-bold '>UCourse</h2>
                 </Link>
-                <form className='hidden bg-[#f8fafb] md:flex border border-black rounded-3xl flex-1 h-12 items-center'>
+                <div className='hidden bg-[#f8fafb] md:flex border border-black rounded-3xl h-12 items-center w-[60%]'>
                     <BsSearch className='h-5 w-5 mx-4 text-gray-400' />
-                    <input type='text' placeholder='Search for anything' className='bg-transparent text-sm outline-none w-11/12 ' />
-                </form>
+                    <input
+                        onFocus={() => {
+                            setVisibleList(true)
+                        }}
+
+                        value={input}
+                        onChange={(e) => handleChange(e.target.value)}
+                        type='text'
+                        placeholder='Search for anything'
+                        className='bg-transparent text-sm outline-none w-11/12' />
+                </div>
                 <h3 className='hidden text-sm lg:block cursor-pointer'>Instructor</h3>
                 <h3 onClick={handleMylearningBtn} className='hidden text-sm lg:block md:hidden cursor-pointer'>My learning</h3>
 
@@ -131,7 +169,10 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
                             {cartItemCount}
                         </div>
                     )}
-                    <AiOutlineBell className='h-6 w-6 cursor-pointer' />
+                    <AiOutlineBell className='h-6 w-6 cursor-pointer mr-4' />
+                    <AiOutlineHeart className='h-6 w-6 cursor-pointer mr-4' />
+
+
                 </div>
                 <div onMouseEnter={handleProfileMouseEnter} onClick={handleProfileMouseEnter}
                     onMouseLeave={handleProfileMouseLeave} className=' flex rounded-full bg-[#1C1D1F] w-10 h-10 items-center justify-center ' >
@@ -156,7 +197,25 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
             </div>
 
 
+            {
+                result.length == 0 ?
+                    null
+                    :
+                    <div className={`${visibleList === true ? ' bg-[white]  border border-gray ml-48 w-[60%] h-72 absolute top-15 z-30 overflow-scroll scrollbar-hide' : '  hidden  '}`}>
+                        {result.map((course) => {
+                            return (
+                                <div onClick={() => { handleClick(course._id) }} key={course._id} className=' flex h-14  items-center hover:bg-[#F7F9FA] cursor-pointer'>
+                                    <BsSearch className=' text-gray-400 mr-5 ml-3 ' />
+                                    <img src={course.image} alt="" className='w-12 h-8 mr-4' />
+                                    <p>{course.title}</p>
 
+                                </div>
+                            )
+                        })}
+
+
+                    </div>
+            }
         </div>
     )
 }

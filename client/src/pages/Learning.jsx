@@ -11,16 +11,27 @@ import { useNavigate } from 'react-router-dom';
 const Learning = () => {
     const navigate = useNavigate();
     const { id } = useParams();
+
     const dispatch = useDispatch();
     const data = useSelector((state) => state.course.course);
     const [currentVideo, setCurrentVideo] = useState();
+
+
     const [userData, setUserData] = useState(
         localStorage.getItem("profile") != null
             ? JSON.parse(localStorage.getItem("profile")).result
             : undefined
     );
+    const [courses, setCourses] = useState(userData.course)
+    console.log(courses)
     useEffect(() => {
         if (!userData) {
+            navigate('/')
+            return
+        }
+        setCourses(userData.course)
+        console.log(courses)
+        if (courses.includes(id) == false) {
             navigate('/')
             return
         }
@@ -33,8 +44,10 @@ const Learning = () => {
         if (data && data.contentMaster && data.contentMaster[0] && data.contentMaster[0].contentDetails && data.contentMaster[0].contentDetails[0]) {
             setCurrentVideo(data.contentMaster[0].contentDetails[0].url);
         }
+
     }, [data]);
-    console.log(data)
+
+
     return (
         <div>
             <div className="flex space-x-4 bg-[#1C1D1F] h-[74px] shadow-lg text-center justify-between items-center px-4 text-white">

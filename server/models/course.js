@@ -42,7 +42,8 @@ const courseSchema = mongoose.Schema({
     type: Date,
     default: new Date(),
   },
-  stageName: { type: String }
+  stageName: { type: String },
+  numberVoted: [{ type: Schema.Types.ObjectId, ref: "Customer" }]
 
 });
 

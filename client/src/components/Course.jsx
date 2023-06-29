@@ -27,7 +27,7 @@ const Course = (props) => {
                 <div className='flex items-center'>
                     <StarRating rate={item.numberStart} />
                 </div>
-                <h3 className='text-xs'>({item.numberStudents})</h3>
+                <h3 className='text-xs'>({item.numberVoted.length})</h3>
             </div>
             <div className='flex space-x-4 items-center'>
                 <h3 className='text-black font-bold'>{formatter.format(item.rawPrice - item.discountValue)}</h3>

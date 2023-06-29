@@ -6,7 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getCustomer } from "../actions/customer";
 import { getCategories } from '../actions/category'
+
 const MyLearning = () => {
+    const [reload, setReload] = useState(false)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [userData, setUserData] = useState(
@@ -20,18 +22,19 @@ const MyLearning = () => {
             navigate('/')
             return
         }
+
         dispatch(getCategories());
         dispatch(
             getCustomer(JSON.parse(localStorage.getItem("profile")).result._id)
         );
-    }, [dispatch]);
+    }, [dispatch, reload]);
     return (
         <div>
             {
                 userData ? (
                     <div>
                         <Header userData={userData} setUserData={setUserData} />
-                        <MyLearningMain />
+                        <MyLearningMain reload={reload} setReload={setReload} />
                         <Footer />
                     </div>
                 ) : navigate("/")

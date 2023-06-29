@@ -81,11 +81,11 @@ const ShoppingCart = () => {
                                             </p>
                                             <p className='text-xs'> {item.stageName}</p>
                                             <div className='flex space-x-1'>
-                                                <h3 className='text-orange-800 font-bold text-sm'>{item.vote}</h3>
+                                                <h3 className='text-orange-800 font-bold text-sm'>{item.numberStart}</h3>
                                                 <div className='flex items-center'>
-                                                    <StarRating rate={item.vote} />
+                                                    <StarRating rate={item.numberStart} />
                                                 </div>
-                                                <h3 className='text-xs'>{item.numberStudents}</h3>
+                                                <h3 className='text-xs'>({item.numberVoted.length})</h3>
                                             </div>
                                         </div>
                                         <div className='flex'>

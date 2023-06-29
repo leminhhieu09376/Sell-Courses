@@ -5,9 +5,12 @@ import { BsSearch } from 'react-icons/bs';
 import { AiOutlineShoppingCart, AiOutlineGlobal } from 'react-icons/ai';
 
 const Navbar = ({ addCart, removeAction }) => {
+    const [visibleList, setVisibleList] = useState(false)
     const navigate = useNavigate();
     const [cartItemCount, setCartItemCount] = useState();
     const [cartData, setCartData] = useState([])
+    const [input, setInput] = useState("")
+    const [result, setResult] = useState([])
     useEffect(() => {
         const cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : []
         setCartData(cart)
@@ -58,6 +61,31 @@ const Navbar = ({ addCart, removeAction }) => {
     const handleLogIn = () => {
         navigate('/login');
     }
+
+    const fetchData = (value) => {
+
+        fetch('http://localhost:5000/course').then((response) => {
+            return response.json()
+        }).then((json) => {
+            const result = json.filter((course) => {
+                return value && course && course.title && course.title.toLowerCase().includes(value)
+            })
+
+            setResult(result)
+        })
+
+
+
+    }
+    const handleChange = (value) => {
+        setInput(value)
+        fetchData(value)
+    }
+    console.log(result)
+    const handleClick = (_id) => {
+        window.scrollTo(0, 0);
+        navigate(`/courseItem/${_id}`)
+    }
     return (
         <div>
             <div className="flex space-x-4 bg-white h-[74px] shadow-lg text-center justify-between items-center px-4">
@@ -69,8 +97,19 @@ const Navbar = ({ addCart, removeAction }) => {
                 <h3 className='hidden text-sm md:block'>Categories</h3>
                 <form className='hidden bg-[#f8fafb] md:flex border border-black rounded-3xl flex-1 h-12 items-center'>
                     <BsSearch className='h-5 w-5 mx-4 text-gray-400' />
-                    <input type='text' placeholder='Search for anything' className='bg-transparent text-sm outline-none w-11/12' />
+                    <input
+
+                        onFocus={() => {
+                            setVisibleList(true)
+                        }}
+
+                        value={input}
+                        onChange={(e) => handleChange(e.target.value)}
+                        type='text'
+                        placeholder='Search for anything'
+                        className='bg-transparent text-sm outline-none w-11/12' />
                 </form>
+
                 <h3 className='hidden text-sm lg:block cursor-pointer'>Umdemy Bussiness</h3>
                 <h3 className='hidden text-sm lg:block md:hidden cursor-pointer'>Teach on Umdemy</h3>
                 <div className="flex">
@@ -133,6 +172,25 @@ const Navbar = ({ addCart, removeAction }) => {
                     </button>
                 </div>
             </div>
+            {
+                result.length == 0 ?
+                    null
+                    :
+                    <div className={`${visibleList === true ? ' bg-[white]  border border-gray ml-60 w-[45%] h-72 absolute top-15 z-30 overflow-scroll scrollbar-hide' : ' bg-[white] hidden  border border-gray ml-60 w-[45%] h-72 absolute top-15 z-30 overflow-scroll scrollbar-hide'}`}>
+                        {result.map((course) => {
+                            return (
+                                <div onClick={() => { handleClick(course._id) }} key={course._id} className=' flex h-14  items-center hover:bg-[#F7F9FA] cursor-pointer'>
+                                    <BsSearch className=' text-gray-400 mr-5 ml-3 ' />
+                                    <img src={course.image} alt="" className='w-12 h-8 mr-4' />
+                                    <p>{course.title}</p>
+
+                                </div>
+                            )
+                        })}
+
+
+                    </div>
+            }
 
 
         </div>
