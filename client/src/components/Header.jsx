@@ -122,8 +122,7 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
                 <div className="flex">
                     <BsSearch className='h-6 w-6 text-gray-400 md:hidden' />
 
-                    <AiOutlineShoppingCart onClick={handleShoppingCart} onMouseEnter={handleCartMouseEnter}
-                        onMouseLeave={handleCartMouseLeave} className='h-6 w-6 mr-4 cursor-pointer' />
+                    <AiOutlineHeart className='h-6 w-6 cursor-pointer mr-4' />
                     {isCartHovered && (
                         <div onMouseEnter={handleCartMouseEnter} onMouseLeave={handleCartMouseLeave} className="absolute right-24 mt-6 shadow-lg rounded-md w-80 z-50 bg-white ">
 
@@ -170,7 +169,9 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
                         </div>
                     )}
                     <AiOutlineBell className='h-6 w-6 cursor-pointer mr-4' />
-                    <AiOutlineHeart className='h-6 w-6 cursor-pointer mr-4' />
+                    <AiOutlineShoppingCart onClick={handleShoppingCart} onMouseEnter={handleCartMouseEnter}
+                        onMouseLeave={handleCartMouseLeave} className='h-6 w-6 mr-4 cursor-pointer' />
+
 
 
                 </div>
@@ -201,7 +202,7 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
                 result.length == 0 ?
                     null
                     :
-                    <div className={`${visibleList === true ? ' bg-[white]  border border-gray ml-48 w-[60%] h-72 absolute top-15 z-30 overflow-scroll scrollbar-hide' : '  hidden  '}`}>
+                    <div className={`${visibleList === true ? ' bg-[white]  border border-gray ml-48 w-[58%] h-72 absolute top-15 z-30 overflow-scroll scrollbar-hide' : '  hidden  '}`}>
                         {result.map((course) => {
                             return (
                                 <div onClick={() => { handleClick(course._id) }} key={course._id} className=' flex h-14  items-center hover:bg-[#F7F9FA] cursor-pointer'>
