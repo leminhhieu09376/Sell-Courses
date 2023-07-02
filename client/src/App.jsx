@@ -21,6 +21,7 @@ import Learning from './pages/Learning';
 import ExploreCourse from './pages/ExploreCourse';
 import ResetPassword from './pages/ResetPassword';
 import ChangePassword from './pages/ChangePassword';
+import Courses from './pages/teacher/Courses'
 function App() {
 
   const router = createBrowserRouter([
@@ -72,6 +73,10 @@ function App() {
     {
       path: "/changepassword",
       element: <ChangePassword />
+    },
+    {
+      path: "/teacher/courses",
+      element: <Courses />
     },
 
 

@@ -4,13 +4,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { signin, signup, changepassword } from "../actions/auth";
-const ChangePassWordMain = () => {
+const ChangePassWordMain = ({ userDataLogin }) => {
 
-    const [userDataLogin, setUserDataLogin] = useState(
-        localStorage.getItem("profile") != null
-            ? JSON.parse(localStorage.getItem("profile")).result
-            : undefined
-    );
+
 
     const dispatch = useDispatch();
     const navigate = useNavigate();

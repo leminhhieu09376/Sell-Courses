@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 const BecomInstructor = () => {
     return (
         <div>
@@ -18,11 +18,16 @@ const BecomInstructor = () => {
             <div className='flex justify-center align-middle mb-14 w-full h-96'>
                 <img className='' src="https://s.udemycdn.com/home/non-student-cta/instructor-1x-v3.jpg" alt="" />
                 <div className='mt-32 w-1/4 text-left ml-20'>
+
                     <h1 className='text-3xl font-bold'>Become an instructor</h1>
+
+
                     <h3>
                         Instructors from around the world teach millions of students on Udemy. We provide the tools and skills to teach what you love.
                     </h3>
-                    <button className='font-bold text-white bg-[#000000] p-4 mt-4'>Start teaching today</button>
+                    <Link to='/teacher/courses'>
+                        <button className='font-bold text-white bg-[#000000] p-4 mt-4'>Start teaching today</button>
+                    </Link>
                 </div>
             </div>
         </div>

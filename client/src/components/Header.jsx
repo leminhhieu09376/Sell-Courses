@@ -116,7 +116,10 @@ const Header = ({ addCart, userData, setUserData, removeAction }) => {
                         placeholder='Search for anything'
                         className='bg-transparent text-sm outline-none w-11/12' />
                 </div>
-                <h3 className='hidden text-sm lg:block cursor-pointer'>Instructor</h3>
+                <Link to='/teacher/courses'>
+                    <h3 className='hidden text-sm lg:block cursor-pointer'>Instructor</h3>
+                </Link>
+
                 <h3 onClick={handleMylearningBtn} className='hidden text-sm lg:block md:hidden cursor-pointer'>My learning</h3>
 
                 <div className="flex">

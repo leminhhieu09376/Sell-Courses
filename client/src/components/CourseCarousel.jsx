@@ -61,7 +61,10 @@ const CourseCarousel = ({ data, addToCart, isExist, handleBuyNow }) => {
                 <hr />
                 <h3 className='font-bold mt-4 mb-2'>Training 5 or more people?</h3>
                 <p className='w-3/4 text-left mx-auto text-sm '>Get your team access to 22,000+ top Udemy courses anytime, anywhere.</p>
-                <button className='block mx-auto  mt-4  border border-black w-48 h-10 font-bold '>Try Udemy Business</button>
+                <Link to='/teacher/courses'>
+                    <button className='block mx-auto  mt-4  border border-black w-48 h-10 font-bold '>Start Teaching Today</button>
+                </Link>
+
 
             </div>
 
