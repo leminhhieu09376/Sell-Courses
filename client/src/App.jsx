@@ -22,6 +22,7 @@ import ExploreCourse from './pages/ExploreCourse';
 import ResetPassword from './pages/ResetPassword';
 import ChangePassword from './pages/ChangePassword';
 import Courses from './pages/teacher/Courses'
+import CreateCourse from './pages/teacher/CreateCourse';
 function App() {
 
   const router = createBrowserRouter([
@@ -78,6 +79,11 @@ function App() {
       path: "/teacher/courses",
       element: <Courses />
     },
+    {
+      path: "/teacher/create-course",
+      element: <CreateCourse />
+    },
+
 
 
 

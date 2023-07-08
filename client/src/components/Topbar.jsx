@@ -6,7 +6,7 @@ import {
 } from 'react-icons/ai';
 const Topbar = ({ userData }) => {
     return (
-        <div className='w-full flex justify-end items-center mt-5 mb-16'>
+        <div className='w-full flex justify-end items-center mt-5'>
             <Link to='/'>
                 <p className='mr-4 text-sm'>Student</p>
             </Link>
