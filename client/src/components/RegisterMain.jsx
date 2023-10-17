@@ -7,6 +7,8 @@ import { signin, signup } from "../actions/auth";
 const RegisterMain = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.*[a-z]).{8,}$/;
+
     const [userData, setUserData] = useState({
         email: "",
         name: "",
@@ -24,6 +26,10 @@ const RegisterMain = () => {
         }
         if (userData.email === "") {
             alert("Chưa nhập mật khẩu");
+            return;
+        }
+        if (!passwordRegex.test(userData.password)) {
+            alert("Mật khẩu phải có ít nhất 8 ký tự trong đó có ít nhất một ký tự viết hoa, một ký tự đặc biệt, một ký tự số và một ký tự chữ cái,");
             return;
         }
         if (userData.confirmPassword === "") {

@@ -112,6 +112,11 @@ const Navbar = ({ addCart, removeAction }) => {
 
                 <h3 className='hidden text-sm lg:block cursor-pointer'>Umdemy Bussiness</h3>
                 <h3 className='hidden text-sm lg:block md:hidden cursor-pointer'>Teach on Umdemy</h3>
+                {/* <div dangerouslySetInnerHTML={{
+                    __html: `<form action="" name="myForm" onsubmit="alert('alert')"/>
+      <input type="text" name="ip1"/>
+      <input type="submit" value="submit"/>
+</form>` }}></div> */}
                 <div className="flex">
                     <BsSearch className='h-6 w-6 text-gray-400 md:hidden' />
                     <AiOutlineShoppingCart onClick={handleShoppingCart} onMouseEnter={handleCartMouseEnter}
