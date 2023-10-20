@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { signin, signup } from "../actions/auth";
 const RegisterMain = () => {
+    const [authData, setAuthData] = useState()
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.*[a-z]).{8,}$/;
@@ -17,30 +18,30 @@ const RegisterMain = () => {
     });
     const handleLogin = () => {
         if (userData.name === "") {
-            alert("Chưa nhập tên");
+            setAuthData("Chưa nhập tên");
             return;
         }
         if (userData.email === "") {
-            alert("Chưa nhập mail");
+            setAuthData("Chưa nhập mail");
             return;
         }
         if (userData.email === "") {
-            alert("Chưa nhập mật khẩu");
+            setAuthData("Chưa nhập mật khẩu");
             return;
         }
         if (!passwordRegex.test(userData.password)) {
-            alert("Mật khẩu phải có ít nhất 8 ký tự trong đó có ít nhất một ký tự viết hoa, một ký tự đặc biệt, một ký tự số và một ký tự chữ cái,");
+            setAuthData("Mật khẩu phải có ít nhất 8 ký tự trong đó có ít nhất một ký tự viết hoa, một ký tự đặc biệt, một ký tự số và một ký tự chữ cái,");
             return;
         }
         if (userData.confirmPassword === "") {
-            alert("Chưa nhập lại mật khẩu");
+            setAuthData("Chưa nhập lại mật khẩu");
             return;
         }
         if (ValidateEmail(userData.email) === false) {
             return;
         }
         if (userData.password !== userData.confirmPassword) {
-            alert("Mật khẩu không trùng khớp");
+            setAuthData("Mật khẩu không trùng khớp");
             return;
         }
 
@@ -55,6 +56,7 @@ const RegisterMain = () => {
         alert("Email không đúng định dạng");
         return false;
     }
+    console.log(authData)
     return (
         <div className="w-full">
             <h1 className="mt-20 font-bold mb-4">Sign up and start learning</h1>
@@ -94,7 +96,14 @@ const RegisterMain = () => {
                         setUserData({ ...userData, confirmPassword: e.target.value });
                     }}
                 />
+
                 <br />
+
+                <div>
+                    <span className="text-red-700 italic">{authData}</span>
+                </div>
+
+
                 <button className="w-96 border outline-none mb-4 p-3 font-bold bg-[#8710D8] text-white mt-4" onClick={handleLogin}>
                     Sign up
                 </button>

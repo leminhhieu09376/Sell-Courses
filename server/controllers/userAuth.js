@@ -17,7 +17,7 @@ export const resetpassword = async (req, res) => {
 
 
         const token = jwt.sign({ id: oldUser._id }, secret, {
-            expiresIn: "1h",
+            expiresIn: "3m",
         });
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
@@ -32,9 +32,20 @@ export const resetpassword = async (req, res) => {
         await transporter.sendMail({
             from: 'n19dcat024@student.ptithcm.edu.vn', // sender address
             to: `${email}`, // list of receivers
-            subject: "Ucourse reset password", // Subject line
+            subject: "Ucourse reset password -", // Subject line
             text: "Hello ", // plain text body
-            html: `<a href='http://127.0.0.1:5173/reset-pass?token=${token}'>Reset</a>`, // html body
+            html: `
+          <p>We have received a request to reset the password for your account. To complete the password reset process, please use the link below. This link will only be valid for a short period of time.</p>
+          <p><a href='http://127.0.0.1:5173/reset-pass?token=${token}'>Reset Password</a></p>
+          <p><strong>Important note:</strong></p>
+          <ul>
+              <li>Please do not share this password reset link with anyone else.</li>
+              <li>This link is valid for a limited time and will expire after a certain period.</li>
+              <li>If you did not request a password reset, please ignore this email or contact our support team.</li>
+          </ul>
+          <p>Thank you for using our services.</p>
+          <p>Best regards,</p>
+           `, // html body
         }, (err) => {
             if (err) {
                 return res.json({
