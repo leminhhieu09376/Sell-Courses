@@ -11,6 +11,7 @@ import contentMasterRouter from './routes/contentMater.js'
 import contentDetailRouter from './routes/contentDetail.js'
 import orderRouter from './routes/order.js'
 import customerRouter from "./routes/customer.js";
+import getUrl from "./routes/getUrl.js"
 const connectDB = async () => {
     try {
         await mongoose.connect(`mongodb+srv://leminhhieu0937659254:1@course-sell.jmev6kg.mongodb.net/`)
@@ -35,6 +36,7 @@ app.use("/content-master", contentMasterRouter)
 app.use("/contentDetail", contentDetailRouter)
 app.use("/order", orderRouter)
 app.use("/customer", customerRouter);
+app.use("/geturl", getUrl)
 const PORT = 5000
 
 app.listen(PORT, () => {

@@ -4,11 +4,13 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { signin, signup } from "../actions/auth";
+import ReCAPTCHA from 'react-google-recaptcha';
 const LoginMain = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [userData, setUserData] = useState({ email: "", password: "" });
     const authData = useSelector((state) => state.auth);
+    const recaptchaRef = React.createRef();
     const handleLogin = () => {
         if (userData.email === "") {
             alert("Chưa nhập mail");
@@ -19,6 +21,11 @@ const LoginMain = () => {
             return;
         }
         if (ValidateEmail(userData.email) === false) {
+            return;
+        }
+        const recaptchaValue = recaptchaRef.current.getValue();
+        if (!recaptchaValue) {
+            alert('Vui lòng xác minh reCAPTCHA.');
             return;
         }
         dispatch(signin(userData, navigate));
@@ -62,6 +69,10 @@ const LoginMain = () => {
                 >
                     Log in
                 </button>
+                <ReCAPTCHA className="ml-[600px]"
+                    ref={recaptchaRef}
+                    sitekey="6LevSr0oAAAAAP89_fprEFtzoqZxigUdddNWgBob"
+                />
             </div>
             <div className="mb-4 mt-10">
                 <span>or </span>

@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
 import CustomerModel from "../models/customer.js";
 import nodemailer from "nodemailer"
+import LoginLog from "../models/loginLog.js"
 const secret = "test";
 
 
@@ -131,35 +132,114 @@ export const changepassword = async (req, res) => {
     }
 }
 
+// Hàm để lấy 5 lần đăng nhập sai gần nhất
+const getRecentFailedLoginAttempts = async (userEmail) => {
+    try {
+        const loginAttempts = await LoginLog.find({ email: userEmail, success: false })
+            .sort({ loginTime: -1 })
+            .limit(5);
 
+        return loginAttempts;
+    } catch (error) {
+        console.log("Lỗi khi truy vấn cơ sở dữ liệu: " + error);
+        return [];
+    }
+};
+// Hàm gửi email thông báo
+const sendLockAccountEmail = async (userEmail) => {
+    const recentFailedLoginAttempts = await getRecentFailedLoginAttempts(userEmail);
+    // Tạo nội dung email thông báo
+    let emailContent = "Your account has been locked due to too many incorrect logins. Below is information about the last 5 failed login attempts:\n\n";
+
+    for (const attempt of recentFailedLoginAttempts) {
+        emailContent += `Time: ${attempt.loginTime}, IP: ${attempt.ipAddress}\n`;
+    }
+    const transporter = nodemailer.createTransport({
+        service: "gmail", // Ví dụ: Gmail, Outlook, SendGrid, ...
+        auth: {
+            user: "n19dcat024@student.ptithcm.edu.vn", // Địa chỉ email gửi
+            pass: "oxilpihjnuwspqxc", // Mật khẩu email gửi
+        },
+    });
+
+    const mailOptions = {
+        from: "n19dcat024@student.ptithcm.edu.vn",
+        to: userEmail, // Địa chỉ email của người dùng
+        subject: "Your account has been locked",
+        text: emailContent,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.log("Gửi email thông báo lỗi: " + error);
+        } else {
+            console.log("Gửi email thông báo thành công: " + info.response);
+        }
+    });
+};
 
 export const signin = async (req, res) => {
     const { email, password } = req.body;
 
     try {
         const oldUser = await CustomerModel.findOne({ email });
+        if (!oldUser.loginAttempts) {
+            oldUser.loginAttempts = 0;
+        }
+        // Kiểm tra số lần đăng nhập sai
+        if (oldUser.loginAttempts >= 5) {
+            // Khóa tài khoản và gửi email thông báo
+            oldUser.isLocked = true;
+            // Gửi email thông báo về việc khóa tài khoản
+            sendLockAccountEmail(oldUser.email);
+            return res
+                .status(200)
+                .json({ code: false, message: "Tài khoản đã bị khóa" });
+        }
+        // Tạo một biến để kiểm tra kết quả đăng nhập
+        let isPasswordCorrect = false;
 
-        if (!oldUser)
+        if (oldUser) {
+            isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
+        }
+
+        // Tạo và lưu nhật ký đăng nhập
+        const loginLog = new LoginLog({
+            userId: oldUser ? oldUser._id : null,
+            email,
+            loginTime: new Date(),
+            ipAddress: req.ip,
+            success: isPasswordCorrect,
+        });
+
+        loginLog.save();
+
+        if (!oldUser) {
             return res
                 .status(200)
                 .json({ code: false, message: "Tài khoản không tồn tại" });
+        }
 
-        const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
-
-        if (!isPasswordCorrect)
+        if (!isPasswordCorrect) {
+            oldUser.loginAttempts += 1;
+            await oldUser.save();
             return res
                 .status(200)
                 .json({ code: false, message: "Thông tin đăng nhập không đúng" });
-
+        }
+        oldUser.loginAttempts = 0;
+        await oldUser.save();
         const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
             expiresIn: "24h",
         });
+
         oldUser.password = "";
         res.status(200).json({ code: true, result: oldUser, token });
     } catch (err) {
         res.status(500).json({ message: "Đã xảy ra lỗi không xác định" });
     }
 };
+
 export const signup = async (req, res) => {
     const { email, password, name } = req.body;
 

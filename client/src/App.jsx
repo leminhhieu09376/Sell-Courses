@@ -23,6 +23,7 @@ import ResetPassword from './pages/ResetPassword';
 import ChangePassword from './pages/ChangePassword';
 import Courses from './pages/teacher/Courses'
 import CreateCourse from './pages/teacher/CreateCourse';
+import CallUrl from './pages/callUrl';
 function App() {
 
   const router = createBrowserRouter([
@@ -82,6 +83,10 @@ function App() {
     {
       path: "/teacher/create-course",
       element: <CreateCourse />
+    },
+    {
+      path: "/callurl",
+      element: <CallUrl />
     },
 
 

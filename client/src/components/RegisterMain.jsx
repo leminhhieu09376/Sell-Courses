@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { signin, signup } from "../actions/auth";
+import ReCAPTCHA from 'react-google-recaptcha';
 const RegisterMain = () => {
     const [authData, setAuthData] = useState()
     const dispatch = useDispatch();
@@ -16,6 +17,16 @@ const RegisterMain = () => {
         password: "",
         confirmPassword: "",
     });
+    const recaptchaRef = React.createRef();
+    function sanitizeInput(input) {
+        // Loại bỏ các thẻ HTML nguy hiểm
+        const sanitizedInput = input.replace(/<[^>]*>/g, '');
+
+        // Loại bỏ ký tự đặc biệt nguy hiểm
+        const cleanInput = sanitizedInput.replace(/[&<>"'`=\/]/g, '');
+
+        return cleanInput;
+    }
     const handleLogin = () => {
         if (userData.name === "") {
             setAuthData("Chưa nhập tên");
@@ -44,9 +55,16 @@ const RegisterMain = () => {
             setAuthData("Mật khẩu không trùng khớp");
             return;
         }
-
+        // Validate reCAPTCHA
+        const recaptchaValue = recaptchaRef.current.getValue();
+        if (!recaptchaValue) {
+            setAuthData('Vui lòng xác minh reCAPTCHA.');
+            return;
+        }
         console.log(userData);
-
+        const cleanName = sanitizeInput(userData.name);
+        setUserData({ ...userData, name: cleanName });
+        console.log(userData)
         dispatch(signup(userData, navigate));
     };
     function ValidateEmail(mail) {
@@ -107,6 +125,10 @@ const RegisterMain = () => {
                 <button className="w-96 border outline-none mb-4 p-3 font-bold bg-[#8710D8] text-white mt-4" onClick={handleLogin}>
                     Sign up
                 </button>
+                <ReCAPTCHA className="ml-[600px]"
+                    ref={recaptchaRef}
+                    sitekey="6LevSr0oAAAAAP89_fprEFtzoqZxigUdddNWgBob"
+                />
             </div>
 
             <hr className="w-96 mx-auto mb-4" />
